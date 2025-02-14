@@ -17,7 +17,7 @@ export default function SignInPage() {
         <HomeButton/>
         
         <Container width={"w-[480px]"} title={"Sign In"}>
-          <div className="flex flex-col gap-5">
+          <div className="column-5">
             
             {/* Email Input */}
             <input type="email" placeholder="Email" className="default-input pl-2 pr-2"/>

@@ -1,15 +1,19 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import Navbar from "@/components/navbar/navbar";
 
 export default function Home() {
+  const router = useRouter();
+  const openAddSubjectPage = () => router.push("/student/subject/add");
+  
   return (
     <div>
       <main>
         <Navbar/>
 
-        <div className="flex justify-center w-screen h-screen items-center">
-          <button className="default-button">
+        <div className="centralized">
+          <button className="default-button" onClick={openAddSubjectPage}>
             Add Subject
           </button>
         </div>

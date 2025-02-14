@@ -17,7 +17,7 @@ export default function SignInPage() {
         <HomeButton/>
         
         <Container width={"w-[480px]"} title={"Sign Up"}>
-          <div className="flex flex-col gap-5">
+          <div className="column-5">
             <div className="flex flex-row gap-2">
 
               {/* First and Last Names Inputs */}
