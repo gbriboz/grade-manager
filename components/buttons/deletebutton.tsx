@@ -8,8 +8,7 @@ const DeleteButton = () => {
       top-2.5 
       right-3.5
       opacity-0 
-      group-hover:opacity-100 
-      group-hover:bg-gradient-to-r 
+      group-hover:opacity-100
       group-hover:from-white 
       group-hover:to-gray-100 
       text-black 
