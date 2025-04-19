@@ -19,6 +19,17 @@ export default class GradeRepository {
         }
     }
 
+    static async getGradeById(id: number): Promise<Grade | null> {
+        try{
+            return await prisma.grade.findUnique({
+                where: { id: id}
+            })
+        } catch (error) {
+            console.error("Error when searching for grade: ", error)
+            throw error
+        }
+    }
+
     static async createGrade(grade: Omit<Grade, "id">, subjectId: number): Promise<Grade> {
         // quando uma nota é criada, ela tem que ser adicionada à lista de subjects que ela faz parte. Provavelmente isso vai ficar na parte da grade, ver depois
         try {
