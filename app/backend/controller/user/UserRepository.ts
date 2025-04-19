@@ -13,28 +13,45 @@ export default class UserRepository {
         }
     }
 
-    static async getUserById(id: number): Promise<User> {
+    static async getUserById(id: number): Promise<User | null> {
         try{
-            const user = await this.db.user.findUnique({
+            return await this.db.user.findUnique({
                 where: {id},
             })
-    
-            return user as User
+
         } catch(error) {
             console.error("Error when searching user: ", error)
             throw error
         }
     }
 
-    static async saveUser(user: User): Promise<User> {
+    static async createUser(user: Omit<User, "id">): Promise<User> {
         try{
-            return await this.db.user.upsert({
-                where: {id: user.id},
-                update: user,
-                create: user
+            return await this.db.user.create({
+               data: {
+                    name: user.name,
+                    email: user.email,
+                    password: user.password
+               },
             })
         } catch(error) {
-            console.error("Error when save user: ", error)
+            console.error("Error when creating user: ", error)
+            throw error
+        }
+    }
+
+    static async updateUser(user: User): Promise<User> {
+        try {
+            return await this.db.user.update({
+                where: { id: user.id },
+                data: {
+                    name: user.name,
+                    email: user.email,
+                    password: user.password
+                }
+            })
+        } catch(error) {
+            console.error("Error when updating user: ", error)
             throw error
         }
     }
