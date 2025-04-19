@@ -1,12 +1,11 @@
 import { Grade } from "../../core/model/Grade";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 
 export default class GradeRepository {
-    private static db = new PrismaClient
 
     static async getAllGradesBySubjectId(subjectId: number): Promise<Grade[]> {
         try {
-            const grades = await this.db.grade.findMany({
+            const grades = await prisma.grade.findMany({
                 where: {
                     subjectId: subjectId
                 }
