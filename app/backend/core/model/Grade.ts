@@ -1,9 +1,9 @@
-import Subject from "./Subject"
+import { Subject } from "./Subject"
 
-export default interface Grade {
+export interface Grade {
     id: number
     score: number
     weight: number
     subjectId: number
-    subject: Subject
+    subject?: Subject[]
 }
