@@ -1,6 +1,5 @@
 import { Grade } from "../../core/model/Grade";
 import { prisma } from "@/lib/prisma";
-import { Subject } from "../../core/model/Subject";
 
 export default class GradeRepository {
 
@@ -15,18 +14,19 @@ export default class GradeRepository {
             return grades
 
         } catch (error) {
-            console.error("Error when searching for subjects: ", error)
+            console.error("Error when searching for grades: ", error)
             throw error
         }
     }
 
-    static async createGrade(grade: Omit<Grade, "id">, subject: Subject): Promise<Grade> {
+    static async createGrade(grade: Omit<Grade, "id">, subjectId: number): Promise<Grade> {
+        // quando uma nota é criada, ela tem que ser adicionada à lista de subjects que ela faz parte. Provavelmente isso vai ficar na parte da grade, ver depois
         try {
             return await prisma.grade.create({
                 data: {
                     score: grade.score,
                     weight: grade.weight,
-                    subjectId: subject.id
+                    subjectId: subjectId
                 },
             })
         } catch (error) {
@@ -50,7 +50,7 @@ export default class GradeRepository {
         }
     }
 
-    static async deleteGrade(grade: Grade) {
+    static async deleteGrade(grade: Grade): Promise<void>{
         try {
             await prisma.grade.delete({
                 where: { id: grade.id}
