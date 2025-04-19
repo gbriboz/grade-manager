@@ -14,6 +14,7 @@ export default class UserRepository {
 
     static async getUserById(id: number): Promise<User | null> {
         try{
+
             return await prisma.user.findUnique({
                 where: {id},
             })
@@ -61,7 +62,7 @@ export default class UserRepository {
                 where: { id },
             })
         } catch(error) {
-            console.error("Error when delete user: ", error)
+            console.error("Error when deleting user: ", error)
             throw error
         }
     }
