@@ -1,8 +1,14 @@
 import { NextResponse } from 'next/server'
 import UserRepository from '@/app/backend/controller/user/UserRepository'
+import { signupSchema } from '@/app/backend/schema/signup'
 
 export async function POST(req: Request) {
   const body = await req.json()
+
+  const saveData = signupSchema.safeParse(body)
+  if(!saveData.success){
+    return NextResponse.json({ error: saveData.error.flatten().fieldErrors })
+  }
 
   try {
 
