@@ -71,4 +71,15 @@ export default class GradeRepository {
             throw error
         }
     }
+
+    static async deleteAllGradesBySubjectId(subjectId: number): Promise<void> {
+        try {
+            await prisma.grade.deleteMany({
+                where: { subjectId: subjectId },
+            });
+        } catch (error) {
+            console.error("Error when deleting grades");
+            throw error;
+        }
+    }
 }
