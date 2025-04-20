@@ -1,3 +1,4 @@
+import { hash } from "bcrypt-ts";
 import { User } from "../../core/model/User";
 import { prisma } from "@/lib/prisma";
 
@@ -25,13 +26,26 @@ export default class UserRepository {
         }
     }
 
+    static async getUserByEmail(email: string): Promise<User | null> {
+        try {
+            return await prisma.user.findFirst({
+                where: { email: email}
+            })
+        } catch(error) {
+            console.error("Error when searching user by email")
+            throw error
+        }
+    }
+
     static async createUser(user: Omit<User, "id">): Promise<User> {
         try{
+            const hashPassword = await hash(user.password, 10)
+
             return await prisma.user.create({
                data: {
                     name: user.name,
                     email: user.email,
-                    password: user.password
+                    password: hashPassword 
                },
             })
         } catch(error) {
